@@ -1,13 +1,30 @@
 import React from 'react'
 import { Box,styled } from '@mui/system'
+import ImgSlider from './ImgSlider';
+import Viewers from './Viewers'
 const Home = () => {
   return (
     <HomeItem>
-      home
+      <ImgSlider/>
+      <Viewers/>
+
     </HomeItem>
   )
 }
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch('')
+  const posts = await res.json()
 
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  }
+}
 export default Home
 const HomeItem=styled(Box)(()=>({
     position: 'relative',
