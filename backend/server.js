@@ -1,5 +1,4 @@
-const express=require('express');
-const app=express();
+const app=require('./app');
 const mongoConnect=require('./initials/databaseConnect');
 const dotenv=require('dotenv');
 const seedDB =require('./initials/dbSeeder');
