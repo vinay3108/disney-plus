@@ -1,14 +1,10 @@
-import React,{useEffect,useState} from 'react'
+import React from 'react'
 import Home from '../Components/HomeUtils/Home'
 
 const index = ({movies}) => {
-  const [movieList,setMovieList]=useState([]);
-  useEffect(()=>{
-    setMovieList(movies);
-  },[])
   return (
     <>
-    <Home movieList={movieList}/>
+    <Home movieList={movies}/>
     </>
   )
 }
