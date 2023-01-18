@@ -3,7 +3,9 @@ const mongoConnect=require('./initials/databaseConnect');
 const dotenv=require('dotenv');
 // const seedDB =require('./initials/dbSeeder');
 
-dotenv.config({path:'config/.env'});
+if(process.env.NODE_ENV!=='production'){
+    dotenv.config({path:'config/.env'});
+}
 //connecting to DB
 mongoConnect();
 
