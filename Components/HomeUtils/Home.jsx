@@ -1,29 +1,30 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { Box,styled } from '@mui/system'
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers'
-const Home = () => {
+import Card from './Card';
+const Home = ({movieList}) => {
+
+  const [recommend,setRecommend]=useState([]);
+  const [newMovie,setNewMovie]=useState([]);
+  const [trending,setTrending]=useState([]);
+  const [original,setOriginal]=useState([]);
+  useEffect(()=>{
+      setRecommend(movieList.filter((item)=>item.type=='recommend'))
+      setNewMovie(movieList.filter((item)=>item.type=='new'))
+      setTrending(movieList.filter((item)=>item.type=='trending'))
+      setOriginal(movieList.filter((item)=>item.type=='original'))
+  },[movieList])
   return (
     <HomeItem>
       <ImgSlider/>
       <Viewers/>
-
+      <Card title={"Recommends"} movies={recommend}/>
+      <Card title={"New Movies"} movies={newMovie}/>
+      <Card title={"Trendings"} movies={trending}/>
+      <Card title={"Originals"} movies={original}/>
     </HomeItem>
   )
-}
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  const res = await fetch('')
-  const posts = await res.json()
-
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      posts,
-    },
-  }
 }
 export default Home
 const HomeItem=styled(Box)(()=>({

@@ -1,7 +1,7 @@
 const app=require('./app');
 const mongoConnect=require('./initials/databaseConnect');
 const dotenv=require('dotenv');
-const seedDB =require('./initials/dbSeeder');
+// const seedDB =require('./initials/dbSeeder');
 
 dotenv.config({path:'config/.env'});
 //connecting to DB

@@ -2,22 +2,23 @@ import { Box, styled } from '@mui/system'
 import React from 'react'
 
 const Card = ({movies,title}) => {
+  console.log(movies)
   return (
     <>
           {movies && 
-          <h4>WatchList</h4>
+          <h4>{title}</h4>
           }
         <Content>
           {movies &&movies.map((movie,key)=>(
               <Wrap key={key}>
                  
-                  <Link to={"/detail/"+ movie.id}>
+                  {/* <Link to={"/detail/"+ movie.id}> */}
                     <WrapDesc>
                       <p>{movie.title}</p>
                       <p>{movie.subTitle}</p>
                     </WrapDesc>
                      <img src={movie.cardImg} alt="" />
-                  </Link>
+                  {/* </Link> */}
               </Wrap>
           ))}
         </Content>
@@ -31,7 +32,7 @@ const Content=styled(Box)(()=>({
     display: "grid",
     gridGap: "25px",
     gap: "25px",
-    gridTemplateColumns: "repeat(7, minmax(0, 1fr))",
+    gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
     '@media (max-width: 768px)': {
       gridTemplateColumns: 'repeat(2, minmax(0, 1fr))'
     }
@@ -53,7 +54,7 @@ const Wrap=styled(Box)(()=>({
     },
     '&:hover': {
       borderColor: "rgba(249, 249, 249, 0.8)",
-      transform: 'scale(1.2)',
+      transform: 'scale(1.1)',
       boxShadow: 'rgba(0 0 0 / 80%) 0px 40px 58px -16px, rgba(0 0 0 / 72%) 0px 30px 22px -10px',
     }
 }))
