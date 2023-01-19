@@ -9,13 +9,13 @@ if(process.env.NODE_ENV!=='production'){
 //connecting to DB
 mongoConnect();
 
-
+const PORT=process.env.PORT || 4000;
 
 //Require only one time for seeding DB
 // seedDB();
 
 
 
-const server=app.listen(4000,()=>{
-    console.log(`server running on port 4000`);
+const server=app.listen(PORT,()=>{
+    console.log(`server running on port ${PORT}`);
 })
