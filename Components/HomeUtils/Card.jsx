@@ -1,10 +1,11 @@
 import { Box, styled } from '@mui/system'
 import React from 'react'
+import Link from 'next/link'
 
 const Card = ({movies,title}) => {
   console.log(movies)
   return (
-    <>
+    <CardContainer>
           {movies && 
           <h4>{title}</h4>
           }
@@ -13,26 +14,31 @@ const Card = ({movies,title}) => {
               <Wrap key={key}>
                  
                   {/* <Link to={"/detail/"+ movie.id}> */}
+                  <Link href={'/detail/'+movie._id}>
                     <WrapDesc>
                       <p>{movie.title}</p>
                       <p>{movie.subTitle}</p>
                     </WrapDesc>
                      <img src={movie.cardImg} alt="" />
-                  {/* </Link> */}
+                  </Link>
               </Wrap>
           ))}
         </Content>
-    </>
+    </CardContainer>
   )
 }
 
 export default Card
+const CardContainer=styled(Box)(()=>({
+color:"#fff",
+marginBottom:"2rem"
+}))
 const Content=styled(Box)(()=>({
     padding: "0 0 26px",
     display: "grid",
     gridGap: "25px",
     gap: "25px",
-    gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+    gridTemplateColumns: "repeat(7, minmax(0, 1fr))",
     '@media (max-width: 768px)': {
       gridTemplateColumns: 'repeat(2, minmax(0, 1fr))'
     }
@@ -54,7 +60,7 @@ const Wrap=styled(Box)(()=>({
     },
     '&:hover': {
       borderColor: "rgba(249, 249, 249, 0.8)",
-      transform: 'scale(1.1)',
+      transform: 'scale(1.2)',
       boxShadow: 'rgba(0 0 0 / 80%) 0px 40px 58px -16px, rgba(0 0 0 / 72%) 0px 30px 22px -10px',
     }
 }))

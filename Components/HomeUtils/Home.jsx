@@ -6,12 +6,12 @@ import Card from './Card';
 const Home = ({movieList}) => {
 
   const [recommend,setRecommend]=useState([]);
-  const [newMovie,setNewMovie]=useState([]);
+  const [disneyMovie,setDisneyMovie]=useState([]);
   const [trending,setTrending]=useState([]);
   const [original,setOriginal]=useState([]);
   useEffect(()=>{
       setRecommend(movieList.filter((item)=>item.type=='recommend'))
-      setNewMovie(movieList.filter((item)=>item.type=='new'))
+      setDisneyMovie(movieList.filter((item)=>item.type=='disneyMovie'))
       setTrending(movieList.filter((item)=>item.type=='trending'))
       setOriginal(movieList.filter((item)=>item.type=='original'))
   },[movieList])
@@ -20,7 +20,7 @@ const Home = ({movieList}) => {
       <ImgSlider/>
       <Viewers/>
       <Card title={"Recommends"} movies={recommend}/>
-      <Card title={"New Movies"} movies={newMovie}/>
+      <Card title={"Disney Movies"} movies={disneyMovie}/>
       <Card title={"Trendings"} movies={trending}/>
       <Card title={"Originals"} movies={original}/>
     </HomeItem>

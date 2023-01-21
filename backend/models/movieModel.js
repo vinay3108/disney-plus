@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-const movieSchema = mongoose.Schema({
+const movieSchema = new mongoose.Schema({
     backgroundImg:{
         type:String,
         required:[true,"please enter background image url"]
@@ -14,7 +14,6 @@ const movieSchema = mongoose.Schema({
     },
     subTitle:{
         type:String,
-        required:[true,"please enter subtitle"]
     },
     title:{
         type:String,
@@ -22,7 +21,6 @@ const movieSchema = mongoose.Schema({
     },
     titleImg:{
         type:String,
-        required:[true,"please enter title image url"]
     },
     type:{
         type:String,
