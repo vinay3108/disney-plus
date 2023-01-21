@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt=require('bcryptjs');
+const Movie=require('./movieModel');
 const jwt=require('jsonwebtoken');
 const userSchema= new mongoose.Schema({
     name:{
@@ -23,6 +24,12 @@ const userSchema= new mongoose.Schema({
         type: String,
         default: 'user',
     },
+    movies:[
+        {
+            type: mongoose.Schema.ObjectId,
+            ref:"Movie"
+        }
+    ],
     createdAt: {
         type: Date,
         default:Date.now,

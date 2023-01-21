@@ -1,23 +1,22 @@
 import { Box, styled } from '@mui/system'
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Link from 'next/link'
+import LoginRegister from './LoginRegister';
 
 const Header = () => {
-    const handleAuth=()=>{
-
-    }
-    const userPhoto="";
-    const userName="vinay"
+    const[open,setOpen]=useState(false);
+    const[user,setUser]=useState({});
+    useEffect(()=>{
+        if(sessionStorage.getItem('user')){
+            setUser(JSON.parse(sessionStorage.getItem('user')));
+        }
+    },[])
   return (
     <>
             <Nav>
             <Logo>
                 <img src="/images/logo.svg" alt="Disney+" />
             </Logo>
-            {!userName?<Login onClick={handleAuth}>Login</Login>
-            :
-            (
-            <>
             <NavMenu>
                 <a href="">
                     <img src="/images/home-icon.svg" alt="HOME" />
@@ -33,15 +32,19 @@ const Header = () => {
                 </Link>
 
             </NavMenu>
-            <SignOut>
-                <UserImg src={userPhoto} alt={userName}/>
-                <DropDown>
-                    <span onClick={handleAuth}>SignOut</span>
-                </DropDown>
-            </SignOut>
+            {
+            open?
+            <LoginRegister setOpen={setOpen} setUser={setUser}/>
+            :
+            <>
+            {
+            user.name?
+            <Login onClick={()=>setUser({})}>SignOut</Login>
+                :  
+            <Login onClick={()=>setOpen(true)}>Login</Login>
+            }
             </>
-            )}
-            <Login onClick={handleAuth}> Login</Login>
+            }
         </Nav>
     </>
   )

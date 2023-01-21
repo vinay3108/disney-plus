@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User =require('../models/userModel');
+const Movie=require('../models/movieModel');
 const ErrorHandler =require('../utils/errorHandler');
 
 
@@ -28,4 +29,19 @@ exports.loginUser=async(req,res,next)=>{
         return next( new ErrorHandler( "invalid Email or Password", 401 ) );
     }
     res.status(200).json({ user })
+}
+
+exports.addWatchList=async(req,res,next)=>{
+    try{
+
+        const{uid}=req.body;
+        const {mid}=req.params;
+        const user=await User.findById(uid);
+        const movie=await Movie.findById(mid);
+        await user.movies.push(movie);
+        await user.save();
+        res.status(200).json({code:"true"})
+    } catch(err){
+        console.log(err);
+    }
 }

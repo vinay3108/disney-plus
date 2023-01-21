@@ -26,27 +26,23 @@ const MovieId = ({movie}) => {
                 <span>Trailer</span>
      
             </Trailer>
-            {/* {
-                detailData.type!=='watchlist'&&
-              */
+          
+              
               <>
               <RightContent>
                   <AddList >
-                <span/>
-                <span/>
+                <span className='first-span'/>
+                <span className='second-span'/>
                 </AddList>
                 <GroupWatch>
                   ADD TO WATCHLIST
                 </GroupWatch>
               </RightContent>
               </>
-           /*  }
-            {
-                detailData.type==='watchlist'&&
                 <>
                 <RightContent onClick={()=>deleteHandler(id)}>
                   <AddList >
-                <span/>
+                <span className='first-span'/>
               
                 
             </AddList>
@@ -55,7 +51,6 @@ const MovieId = ({movie}) => {
             </GroupWatch>
             </RightContent>
                 </>
-            } */}
             </Controls>
             
         <SubTitle>{movie.subTitle}</SubTitle>
@@ -166,13 +161,26 @@ const Trailer=styled(Box)(()=>({
 background:"rgba(0,0,0,0.3)",
 border:"1px solid rgb(249,249,249)",
 color:"rgb(249,249,249)",
+padding:'0.5rem 1.4rem',
+display:"flex",
+alignItems:'center',
+borderRadius:'3px',
+'&:hover':{
+  cursor:'pointer',
+}
 }))
 
 const RightContent=styled(Box)(()=>({
 cursor:"pointer",
 transition: "all 0.4s ease-in-out",
+border:'1px solid #fff',
+display:'flex',
+margin:'0 2rem',
+padding:'8px',
+borderRadius:'3px',
 "&:hover":{
     background: "rgb(0,0,0,0.7)",
+    color:'#fff'
 }
 }))
 const AddList=styled(Box)(()=>({
@@ -190,16 +198,16 @@ cursor: "pointer",
     "span":{
         backgroundColor:"rgb(249,249,249)",
         display:"inline-block",
-        "&:first-child":{
-            height:"2px",
-            transform:"translate(1px,0px) rotate(0deg)",
-            width:"16px",
         },
-        "&:nth-child(2)":{
-            height:"16px",
-            transform:"translateX(-8px)",
-            width:"2px",
-        }
+        ".first-span":{
+          height:"2px",
+          transform:"translate(1px,18px) rotate(0deg)",
+          width:"16px",
+      },
+      ".second-span":{
+          height:"16px",
+          transform: 'translateY(10px) translateX(-8px)',
+          width:"2px",
     }
   }))
 
