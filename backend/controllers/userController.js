@@ -33,7 +33,6 @@ exports.loginUser=async(req,res,next)=>{
 
 exports.addWatchList=async(req,res,next)=>{
     try{
-
         const{uid}=req.body;
         const {mid}=req.params;
         const user=await User.findById(uid);
@@ -44,4 +43,28 @@ exports.addWatchList=async(req,res,next)=>{
     } catch(err){
         console.log(err);
     }
+}
+
+exports.removeWatchList=async(req,res)=>{
+    try{
+        const{uid}=req.body;
+        const {mid}=req.params;
+        const user= await User.findByIdAndUpdate(uid,{$pull:{movies:mid}}); 
+        await user.save();
+        res.status(200).json({code:"true"})
+    } catch(err){
+        console.log(err);
+    }
+}
+
+exports.getUsers=async(req,res)=>{
+    const {uid}=req.params;
+
+    if(!uid){
+        const user=await User.find();
+       return res.status(200).json({user});
+    }
+
+    const user=await User.findById(uid).populate('movies');
+    return res.status(200).json({user});
 }

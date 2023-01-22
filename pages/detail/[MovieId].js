@@ -1,10 +1,29 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { useRouter } from 'next/router'
 import { styled ,Box} from '@mui/system';
 import Image from 'next/image';
+import axios from 'axios';
 
 const MovieId = ({movie}) => {
-  const router = useRouter();
+  const router=useRouter();
+  const [userMovie,setUserMovie]=useState([]);
+  const [userData,setUserData]=useState({});
+  useEffect(() => {
+    let user=sessionStorage.getItem("user");
+    if(user){
+      user=JSON.parse(user);
+      setUserData(user);
+      setUserMovie(user.movies);
+    }
+  }, [])
+
+  const addWatchList=async()=>{
+   const res= await axios.post(`http://localhost:4000/api/v1/add/${movie._id}`,{"uid":userData._id});
+    if(res.status==200){
+      router.push('/');
+    }
+  }
+
   return (
     <Container>
     <Background>
@@ -27,30 +46,33 @@ const MovieId = ({movie}) => {
      
             </Trailer>
           
-              
-              <>
-              <RightContent>
-                  <AddList >
-                <span className='first-span'/>
-                <span className='second-span'/>
-                </AddList>
-                <GroupWatch>
-                  ADD TO WATCHLIST
-                </GroupWatch>
-              </RightContent>
-              </>
+              {
+                userMovie.find(elem=>elem==movie._id)?
                 <>
-                <RightContent onClick={()=>deleteHandler(id)}>
+                <RightContent>
                   <AddList >
-                <span className='first-span'/>
-              
-                
-            </AddList>
-            <GroupWatch>
-               REMOVE FROM WATCHLIST
-            </GroupWatch>
-            </RightContent>
+                  <span className='first-span'/>    
+                  </AddList>
+                  <GroupWatch>
+                    REMOVE FROM WATCHLIST
+                  </GroupWatch>
+                </RightContent>
                 </>
+                :
+                <>
+                <RightContent onClick={addWatchList}>
+                  <AddList >
+                  <span className='first-span'/>
+                  <span className='second-span'/>
+                  </AddList>
+                  <GroupWatch>
+                    ADD TO WATCHLIST
+                  </GroupWatch>
+                </RightContent>
+                </>
+              }
+             
+             
             </Controls>
             
         <SubTitle>{movie.subTitle}</SubTitle>

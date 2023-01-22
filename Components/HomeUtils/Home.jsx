@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { Box,styled } from '@mui/system'
+import axios from 'axios';
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers'
 import Card from './Card';
@@ -9,16 +10,31 @@ const Home = ({movieList}) => {
   const [disneyMovie,setDisneyMovie]=useState([]);
   const [trending,setTrending]=useState([]);
   const [original,setOriginal]=useState([]);
+  const [watchList,setWatchList]=useState([]);
   useEffect(()=>{
       setRecommend(movieList.filter((item)=>item.type=='recommend'))
       setDisneyMovie(movieList.filter((item)=>item.type=='disneyMovie'))
       setTrending(movieList.filter((item)=>item.type=='trending'))
       setOriginal(movieList.filter((item)=>item.type=='original'))
   },[movieList])
+  const getWatchList=async(user)=>{
+    const {data}=await axios.get(`http://localhost:4000/api/v1/user/${user._id}`);
+    setWatchList(data.user.movies);
+  }
+  useEffect(()=>{
+    const user=sessionStorage.getItem('user');
+    if(user){
+      getWatchList(JSON.parse(user));
+    }
+  },[])
   return (
     <HomeItem>
       <ImgSlider/>
       <Viewers/>
+      {
+      watchList.length>0&&
+      <Card title={"WatchList"} movies={watchList}/>
+      }
       <Card title={"Recommends"} movies={recommend}/>
       <Card title={"Disney Movies"} movies={disneyMovie}/>
       <Card title={"Trendings"} movies={trending}/>
