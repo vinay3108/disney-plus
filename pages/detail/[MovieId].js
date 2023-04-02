@@ -1,9 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import { useRouter } from 'next/router'
 import { styled ,Box} from '@mui/system';
-import Image from 'next/image';
 import axios from 'axios';
-
+import VideoPlayer from '../../Components/PlayerUtils/VideoPlayer';
 const MovieId = ({movie}) => {
   const router=useRouter();
   const [userMovie,setUserMovie]=useState([]);
@@ -33,6 +32,7 @@ const MovieId = ({movie}) => {
     <img src={movie.titleImg} alt={movie.title} />
 
     </ImageTitle>
+    <VideoPlayer/>
     <ContentMeta>
         <Controls>
             <Player>

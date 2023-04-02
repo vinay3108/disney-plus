@@ -1,6 +1,7 @@
 import React from 'react'
 import Home from '../Components/HomeUtils/Home'
 import Header from '../Components/HeaderUtils/Header'
+import {fetchData} from '@/Helpers/restApiHandler';
 const index = ({movies}) => {
   return (
     <>
@@ -10,7 +11,7 @@ const index = ({movies}) => {
   )
 }
 export async function getServerSideProps(context) {
-  const res=await fetch('http://localhost:4000/api/v1/movies');
+  const res=await fetchData('movies') ;
     const {movies}=await res.json();
   return {
     props: {movies}, // will be passed to the page component as props
