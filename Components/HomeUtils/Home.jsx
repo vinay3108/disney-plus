@@ -4,6 +4,7 @@ import axios from 'axios';
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers'
 import Card from './Card';
+import { fetchData } from '@/Helpers/restApiHandler';
 const Home = ({movieList}) => {
 
   const [recommend,setRecommend]=useState([]);
@@ -18,7 +19,7 @@ const Home = ({movieList}) => {
       setOriginal(movieList.filter((item)=>item.type=='original'))
   },[movieList])
   const getWatchList=async(user)=>{
-    const {data}=await axios.get(`http://localhost:4000/api/v1/user/${user._id}`);
+    const {data}=await fetchData(`/user/${user._id}`);
     setWatchList(data.user.movies);
   }
   useEffect(()=>{

@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import { useRouter } from 'next/router'
 import { styled ,Box} from '@mui/system';
-import axios from 'axios';
 import VideoPlayer from '../../Components/PlayerUtils/VideoPlayer';
+import { fetchData, postData } from '../../Helpers/restApiHandler';
 const MovieId = ({movie}) => {
   const router=useRouter();
   const [userMovie,setUserMovie]=useState([]);
@@ -17,7 +17,7 @@ const MovieId = ({movie}) => {
   }, [])
 
   const addWatchList=async()=>{
-   const res= await axios.post(`http://localhost:4000/api/v1/add/${movie._id}`,{"uid":userData._id});
+   const res= await postData(`/add/${movie._id}`,{"uid":userData._id});
     if(res.status==200){
       router.push('/');
     }
@@ -86,7 +86,7 @@ export default MovieId
 export async function getServerSideProps(context) {
   // console.info(context.params.MovieId);
   const id=context.params.MovieId;
-  const res=await fetch(`http://localhost:4000/api/v1/movies/${id}`);
+  const res=await fetchData(`movies/${id}`);
     const {movie}=await res.json();
   return {
     props: {movie}, // will be passed to the page component as props

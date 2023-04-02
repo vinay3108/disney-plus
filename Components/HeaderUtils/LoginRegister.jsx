@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { postData } from '@/Helpers/restApiHandler';
 
 export default function LoginRegister(props) {
   const [open, setOpen] = useState(true);
@@ -18,7 +19,7 @@ export default function LoginRegister(props) {
 
   const submitHandler=async(e)=>{
     e.preventDefault();
-   const res=await axios.post("http://localhost:4000/api/v1/login",{email,password});
+   const res=await postData("login",{email,password});
    if(res.status===200){
     sessionStorage.setItem('user',JSON.stringify(res.data.user));
     props.setUser(res.data.user);
